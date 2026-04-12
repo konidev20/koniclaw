@@ -1,0 +1,67 @@
+# ==============================
+# Terraform — defense-in-depth
+# (terraform/.gitignore has its own rules; these catch misplaced files at root)
+# ==============================
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+*.tfvars
+*.tfvars.json
+*.tfplan
+.terraform/
+
+# ==============================
+# Secrets & credentials
+# ==============================
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.cer
+*.der
+*.env
+*.env.*
+!*.env.example
+.secret
+.secrets
+credentials
+credentials.*
+**/secrets/
+service-account*.json
+
+# ==============================
+# Claude Code local settings
+# ==============================
+.claude/settings.local.json
+
+# ==============================
+# OS files
+# ==============================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==============================
+# Editor / IDE files
+# ==============================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ==============================
+# Logs & temp files
+# ==============================
+*.log
+crash.log
+crash.*.log
+tmp/
+temp/
