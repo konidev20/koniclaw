@@ -38,3 +38,13 @@ output "key_vault_secret_ssh_id" {
   description = "Key Vault secret ID (versioned URI) for the SSH private key."
   value       = azurerm_key_vault_secret.ssh_private_key.id
 }
+
+output "recovery_vault_name" {
+  description = "Name of the Recovery Services Vault."
+  value       = azurerm_recovery_services_vault.main.name
+}
+
+output "recovery_vault_id" {
+  description = "Resource ID of the Recovery Services Vault."
+  value       = azurerm_recovery_services_vault.main.id
+}
