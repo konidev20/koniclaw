@@ -48,3 +48,18 @@ output "recovery_vault_id" {
   description = "Resource ID of the Recovery Services Vault."
   value       = azurerm_recovery_services_vault.main.id
 }
+
+output "ai_resource_group_name" {
+  description = "Name of the AI Foundry resource group."
+  value       = azurerm_resource_group.ai.name
+}
+
+output "ai_foundry_name" {
+  description = "Name of the AI Foundry Hub."
+  value       = azurerm_ai_foundry.main.name
+}
+
+output "ai_foundry_id" {
+  description = "Resource ID of the AI Foundry Hub."
+  value       = azurerm_ai_foundry.main.id
+}
