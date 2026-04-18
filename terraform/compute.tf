@@ -20,6 +20,9 @@ resource "azurerm_linux_virtual_machine" "main" {
   location            = var.location
   size                = "Standard_B2ps_v2"
   admin_username      = var.vm_admin_username
+  custom_data         = base64encode(templatefile("${path.module}/cloud-init.yaml", {
+    vm_admin_username = var.vm_admin_username
+  }))
 
   network_interface_ids = [azurerm_network_interface.main.id]
 
