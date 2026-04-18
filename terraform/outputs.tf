@@ -63,3 +63,8 @@ output "ai_foundry_id" {
   description = "Resource ID of the AI Foundry Hub."
   value       = azurerm_ai_foundry.main.id
 }
+
+output "ai_foundry_project_name" {
+  description = "Name of the AI Foundry Project."
+  value       = azurerm_ai_foundry_project.main.name
+}

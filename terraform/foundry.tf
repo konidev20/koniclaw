@@ -53,3 +53,15 @@ resource "azurerm_role_assignment" "ai_foundry_kv" {
   role_definition_name = "Key Vault Secrets Officer"
   principal_id         = azurerm_ai_foundry.main.identity[0].principal_id
 }
+
+resource "azurerm_ai_foundry_project" "main" {
+  name         = local.name_ai_foundry_project
+  location     = var.location
+  ai_foundry_id = azurerm_ai_foundry.main.id
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = local.common_tags
+}
