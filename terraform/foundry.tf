@@ -37,15 +37,26 @@ resource "azurerm_cognitive_account" "main" {
   name                = local.name_cognitive_account
   location            = var.location
   resource_group_name = azurerm_resource_group.ai.name
-  kind                     = "AIServices"
-  sku_name                 = "S0"
-  allow_project_management = true
+  kind                = "AIServices"
+  sku_name            = "S0"
 
   identity {
     type = "SystemAssigned"
   }
 
   tags = local.common_tags
+}
+
+# allowProjectManagement is not yet exposed by the azurerm provider — patch it via azapi.
+resource "azapi_update_resource" "cognitive_account_pm" {
+  type        = "Microsoft.CognitiveServices/accounts@2024-10-01"
+  resource_id = azurerm_cognitive_account.main.id
+
+  body = {
+    properties = {
+      allowProjectManagement = true
+    }
+  }
 }
 
 resource "azurerm_cognitive_account_project" "main" {
@@ -58,4 +69,6 @@ resource "azurerm_cognitive_account_project" "main" {
   }
 
   tags = local.common_tags
+
+  depends_on = [azapi_update_resource.cognitive_account_pm]
 }
