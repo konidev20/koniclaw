@@ -23,7 +23,6 @@ resource "azurerm_key_vault" "ai" {
   sku_name                   = "standard"
   soft_delete_retention_days = 90
   purge_protection_enabled   = true
-  enable_rbac_authorization  = true
   tags                       = local.common_tags
 }
 
@@ -49,12 +48,6 @@ resource "azurerm_ai_foundry" "main" {
 }
 
 # Grant the Hub's managed identity access to its storage account and key vault.
-resource "azurerm_role_assignment" "ai_foundry_storage" {
-  scope                = azurerm_storage_account.ai.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = azurerm_ai_foundry.main.identity[0].principal_id
-}
-
 resource "azurerm_role_assignment" "ai_foundry_kv" {
   scope                = azurerm_key_vault.ai.id
   role_definition_name = "Key Vault Secrets Officer"
