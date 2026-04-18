@@ -9,6 +9,10 @@ packages:
   - curl
   - gnupg
   - software-properties-common
+  - build-essential
+  - procps
+  - file
+  - git
 
 runcmd:
   # ── Docker ──────────────────────────────────────────────────────────────────
@@ -27,3 +31,6 @@ runcmd:
   - apt-get install -y ansible
   # ── uv ──────────────────────────────────────────────────────────────────────
   - runuser -l ${vm_admin_username} -c 'curl -LsSf https://astral.sh/uv/install.sh | sh'
+  # ── Homebrew ────────────────────────────────────────────────────────────────
+  - runuser -l ${vm_admin_username} -c 'NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+  - runuser -l ${vm_admin_username} -c '/home/linuxbrew/.linuxbrew/bin/brew shellenv >> ~/.bashrc'

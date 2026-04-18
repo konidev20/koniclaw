@@ -39,7 +39,9 @@ resource "azurerm_cognitive_account" "main" {
   resource_group_name = azurerm_resource_group.ai.name
   kind                = "AIServices"
   sku_name            = "S0"
-
+  project_management_enabled = true
+  custom_subdomain_name = local.name_custom_sub_domain
+  
   identity {
     type = "SystemAssigned"
   }
