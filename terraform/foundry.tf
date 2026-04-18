@@ -48,9 +48,9 @@ resource "azurerm_cognitive_account" "main" {
 }
 
 resource "azurerm_cognitive_account_project" "main" {
-  name               = local.name_cognitive_project
+  name                 = local.name_cognitive_project
   cognitive_account_id = azurerm_cognitive_account.main.id
-  location           = var.location
+  location             = var.location
 
   identity {
     type = "SystemAssigned"
