@@ -37,8 +37,9 @@ resource "azurerm_cognitive_account" "main" {
   name                = local.name_cognitive_account
   location            = var.location
   resource_group_name = azurerm_resource_group.ai.name
-  kind                = "AIServices"
-  sku_name            = "S0"
+  kind                     = "AIServices"
+  sku_name                 = "S0"
+  allow_project_management = true
 
   identity {
     type = "SystemAssigned"
