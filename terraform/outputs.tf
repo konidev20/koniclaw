@@ -33,3 +33,8 @@ output "ssh_private_key" {
   value       = tls_private_key.vm_ssh.private_key_pem
   sensitive   = true
 }
+
+output "key_vault_secret_ssh_id" {
+  description = "Key Vault secret ID (versioned URI) for the SSH private key."
+  value       = azurerm_key_vault_secret.ssh_private_key.id
+}
