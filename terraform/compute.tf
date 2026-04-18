@@ -18,18 +18,13 @@ resource "azurerm_linux_virtual_machine" "main" {
   name                = local.name_virtual_machine
   resource_group_name = azurerm_resource_group.main.name
   location            = var.location
-  size                = "Standard_D2as_v6"
-  admin_username      = "konidev"
-
-  # Spot — capacity-only eviction (price threshold = -1 means pay up to on-demand rate)
-  priority        = "Spot"
-  eviction_policy = "Deallocate"
-  max_bid_price   = -1
+  size                = "Standard_B2ps_v2"
+  admin_username      = var.vm_admin_username
 
   network_interface_ids = [azurerm_network_interface.main.id]
 
   admin_ssh_key {
-    username   = "konidev"
+    username   = var.vm_admin_username
     public_key = tls_private_key.vm_ssh.public_key_openssh
   }
 
@@ -40,11 +35,11 @@ resource "azurerm_linux_virtual_machine" "main" {
     disk_size_gb         = 30
   }
 
-  # Ubuntu Server 24.04 LTS (Noble Numbat) — x64
+  # Ubuntu Server 24.04 LTS (Noble Numbat) — ARM64
   source_image_reference {
     publisher = "Canonical"
     offer     = "ubuntu-24_04-lts"
-    sku       = "server"
+    sku       = "server-arm64"
     version   = "latest"
   }
 

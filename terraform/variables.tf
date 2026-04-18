@@ -13,6 +13,17 @@ variable "location" {
   type        = string
 }
 
+variable "vm_admin_username" {
+  description = "Admin username for the Linux VM."
+  type        = string
+  default     = "konidev"
+
+  validation {
+    condition     = can(regex("^[a-z_][a-z0-9_-]{0,31}$", var.vm_admin_username))
+    error_message = "vm_admin_username must start with a letter or underscore and contain only lowercase letters, digits, hyphens, or underscores (max 32 chars)."
+  }
+}
+
 variable "environment" {
   description = "Deployment environment abbreviation appended to all resource names."
   type        = string
