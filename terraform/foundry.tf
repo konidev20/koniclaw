@@ -33,12 +33,12 @@ resource "azurerm_role_assignment" "deployer_kv_ai" {
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
-resource "azurerm_ai_foundry" "main" {
-  name                = local.name_ai_foundry
+resource "azurerm_cognitive_account" "main" {
+  name                = local.name_cognitive_account
   location            = var.location
   resource_group_name = azurerm_resource_group.ai.name
-  storage_account_id  = azurerm_storage_account.ai.id
-  key_vault_id        = azurerm_key_vault.ai.id
+  kind                = "AIServices"
+  sku_name            = "S0"
 
   identity {
     type = "SystemAssigned"
@@ -47,17 +47,10 @@ resource "azurerm_ai_foundry" "main" {
   tags = local.common_tags
 }
 
-# Grant the Hub's managed identity access to its storage account and key vault.
-resource "azurerm_role_assignment" "ai_foundry_kv" {
-  scope                = azurerm_key_vault.ai.id
-  role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = azurerm_ai_foundry.main.identity[0].principal_id
-}
-
-resource "azurerm_ai_foundry_project" "main" {
-  name         = local.name_ai_foundry_project
-  location     = var.location
-  ai_services_hub_id = azurerm_ai_foundry.main.id
+resource "azurerm_cognitive_account_project" "main" {
+  name               = local.name_cognitive_project
+  cognitive_account_id = azurerm_cognitive_account.main.id
+  location           = var.location
 
   identity {
     type = "SystemAssigned"

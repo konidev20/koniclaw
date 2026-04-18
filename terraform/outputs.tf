@@ -54,17 +54,17 @@ output "ai_resource_group_name" {
   value       = azurerm_resource_group.ai.name
 }
 
-output "ai_foundry_name" {
-  description = "Name of the AI Foundry Hub."
-  value       = azurerm_ai_foundry.main.name
+output "ai_cognitive_account_name" {
+  description = "Name of the Azure AI Services (Cognitive) account."
+  value       = azurerm_cognitive_account.main.name
 }
 
-output "ai_foundry_id" {
-  description = "Resource ID of the AI Foundry Hub."
-  value       = azurerm_ai_foundry.main.id
+output "ai_cognitive_account_endpoint" {
+  description = "Endpoint URL for the Azure AI Services account."
+  value       = azurerm_cognitive_account.main.endpoint
 }
 
-output "ai_foundry_project_name" {
+output "ai_cognitive_project_name" {
   description = "Name of the AI Foundry Project."
-  value       = azurerm_ai_foundry_project.main.name
+  value       = azurerm_cognitive_account_project.main.name
 }
