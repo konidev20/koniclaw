@@ -159,14 +159,6 @@ locals {
   name_os_disk      = "osdisk-${local.name_base}" # VM OS disk
   name_data_disk    = "disk-${local.name_base}"   # VM data disk
 
-  # AI Foundry (separate resource group)
-  name_resource_group_ai  = "rg-ai-${local.name_base}"
-  name_cognitive_account  = "cog-${local.name_base}"
-  name_cognitive_project  = "cogproj-${local.name_base}"
-  name_key_vault_ai       = "kv-ai-${local.name_base}"                                                                    # max 24 chars
-  name_storage_account_ai = substr(replace("stai${var.app_abbreviation}${local.region_short}${var.environment}", "-", ""), 0, 24)
-  name_custom_sub_domain = "${var.app_abbreviation}${local.region_short}${var.environment}" # max 63 chars, lowercase, alphanumeric only
-
   ##############################################################################
   # COMMON TAGS
   # Applied to every resource. Extend here if additional global tags are needed.

@@ -18,7 +18,7 @@ resource "azurerm_linux_virtual_machine" "main" {
   name                = local.name_virtual_machine
   resource_group_name = azurerm_resource_group.main.name
   location            = var.location
-  size                = "Standard_B2ps_v2"
+  size                = "Standard_D2pds_v6"
   admin_username      = var.vm_admin_username
   custom_data         = base64encode(templatefile("${path.module}/cloud-init.yaml", {
     vm_admin_username = var.vm_admin_username
@@ -50,22 +50,4 @@ resource "azurerm_linux_virtual_machine" "main" {
   # vtpm_enabled and secure_boot_enabled are false by default.
 
   tags = local.common_tags
-}
-
-# P10 Premium SSD data disk — 128 GiB, 500 IOPS / 100 MB/s (tier fixed by size)
-resource "azurerm_managed_disk" "data" {
-  name                 = local.name_data_disk
-  location             = var.location
-  resource_group_name  = azurerm_resource_group.main.name
-  storage_account_type = "Premium_LRS"
-  create_option        = "Empty"
-  disk_size_gb         = 128
-  tags                 = local.common_tags
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "data" {
-  managed_disk_id    = azurerm_managed_disk.data.id
-  virtual_machine_id = azurerm_linux_virtual_machine.main.id
-  lun                = 0
-  caching            = "ReadWrite"
 }
